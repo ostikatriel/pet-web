@@ -6,16 +6,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../core/auth-service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-pet-list',
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatDialogModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatDialogModule, MatSnackBarModule],
   templateUrl: './pet-list.html',
   styleUrl: './pet-list.css',
 })
 export class PetList implements OnInit {
   private petService = inject(PetService);
   private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
   public authService = inject(AuthService);
   pets: any[] = [];
   cols = ['name', 'species', 'actions'];
@@ -29,7 +31,15 @@ export class PetList implements OnInit {
   }
 
   delete(id: number) {
-    this.petService.delete(id).subscribe(() => this.load());
+    this.petService.delete(id).subscribe({
+      next: (res) => {
+        this.load();
+        this.snackBar.open(res.message, 'Cerrar', { duration: 3000 });
+      },
+      error: (err) => {
+        this.snackBar.open(err.error.message, 'Cerrar', { duration: 5000, panelClass: ['error-snackbar'] });
+      }
+    });
   }
 
   openForm(pet?: any) {
