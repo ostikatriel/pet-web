@@ -7,11 +7,10 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../core/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HasRoleDirective } from '../../../core/has-role.directive';
 
 @Component({
   selector: 'app-pet-list',
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatDialogModule, HasRoleDirective],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatDialogModule],
   templateUrl: './pet-list.html',
   styleUrl: './pet-list.css',
 })
