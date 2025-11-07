@@ -1,7 +1,9 @@
 <div class="container">
-    @if (authService.user()?.role === 'CLIENT') {
-    <button mat-raised-button color="primary" (click)="openForm()">Nueva Mascota</button>
-    }
+    <div style="margin-bottom: 20px;">
+        @if (authService.user()?.role === 'CLIENT') {
+        <button mat-raised-button color="primary" (click)="openForm()">Nueva Mascota</button>
+        }
+    </div>
     <table mat-table [dataSource]="pets" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Nombre</th>
