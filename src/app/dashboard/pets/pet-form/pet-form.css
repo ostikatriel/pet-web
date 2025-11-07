@@ -3,15 +3,6 @@
     flex-direction: column;
 }
 
-.form-actions-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    /* Espacio entre los botones */
-    padding: 0 16px 16px;
-    /* Ajusta el padding del contenedor de acciones */
-}
-
-.form-actions-vertical button {
+button {
     width: 100%;
 }
