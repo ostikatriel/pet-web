@@ -3,16 +3,17 @@ import { PetList } from './pets/pet-list/pet-list';
 import { AuthService } from '../core/auth-service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips'
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MatToolbarModule, MatButtonModule, PetList],
+  imports: [MatToolbarModule, MatButtonModule, PetList, MatChipsModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  private auth = inject(AuthService);
+  public authService = inject(AuthService);
 
-  logout() { this.auth.logout(); }
+  logout() { this.authService.logout(); }
 
 }
