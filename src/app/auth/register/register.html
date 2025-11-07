@@ -6,11 +6,26 @@
         <mat-card-content>
             <form class="register-form" [formGroup]="form" (ngSubmit)="submit()">
                 <mat-form-field><input matInput placeholder="Nombre completo"
-                        formControlName="fullName"></mat-form-field>
-                <mat-form-field><input matInput placeholder="Email" formControlName="email"></mat-form-field>
+                        formControlName="fullName">
+                    @if (form.get('fullName')?.hasError('required')) {
+                    <mat-error>El nombre completo es requerido.</mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field><input matInput placeholder="Email" formControlName="email">
+                    @if (form.get('email')?.hasError('required')) {
+                    <mat-error>El email es requerido.</mat-error>
+                    }
+                    @if (form.get('email')?.hasError('email')) {
+                    <mat-error>Por favor ingrese un email válido.</mat-error>
+                    }
+                </mat-form-field>
                 <mat-form-field><input matInput type="password" placeholder="Contraseña"
-                        formControlName="password"></mat-form-field>
-                <button mat-raised-button color="primary" type="submit">Registrarse</button>
+                        formControlName="password">
+                    @if (form.get('password')?.hasError('required')) {
+                    <mat-error>La contraseña es requerida.</mat-error>
+                    }
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Registrarse</button>
                 <a mat-stroked-button routerLink="/login" class="login-button">Ir a Entrar</a>
             </form>
         </mat-card-content>
