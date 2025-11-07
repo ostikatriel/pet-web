@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PetService } from '../../../core/services/pet-service';
@@ -13,7 +13,7 @@ import { CreatePetRequest, Pet, UpdatePetRequest } from '../../../core/interface
 
 @Component({
   selector: 'app-pet-form',
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatDialogModule],
   templateUrl: './pet-form.html',
   styleUrl: './pet-form.css',
 })

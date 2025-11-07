@@ -15,7 +15,10 @@
                 <mat-error>La especie es requerida.</mat-error>
                 }
             </mat-form-field>
-            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
         </form>
     </mat-card-content>
+    <mat-card-actions class="form-actions-vertical">
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="form.invalid">Guardar</button>
+        <button mat-button [mat-dialog-close]>Cancelar</button>
+    </mat-card-actions>
 </mat-card>
