@@ -4,8 +4,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../core/auth-service';
+import { RegisterRequest } from '../../core/interfaces/auth.interface';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -27,7 +28,7 @@ export class Register {
 
   submit() {
     if (this.form.valid) {
-      this.authService.register(this.form.value).subscribe({
+      this.authService.register(this.form.value as RegisterRequest).subscribe({
         next: (res) => {
           this.snackBar.open(res.message, 'Cerrar', { duration: 5000 });
         },

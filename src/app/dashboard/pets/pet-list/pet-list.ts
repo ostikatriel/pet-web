@@ -7,6 +7,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../core/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Pet } from '../../../core/interfaces/pet.interface';
 
 @Component({
   selector: 'app-pet-list',
@@ -19,7 +20,7 @@ export class PetList implements OnInit {
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
   public authService = inject(AuthService);
-  pets: any[] = [];
+  pets: Pet[] = [];
   cols = ['name', 'species', 'actions'];
 
   ngOnInit() {
@@ -27,7 +28,7 @@ export class PetList implements OnInit {
   }
 
   load() {
-    this.petService.getAll().subscribe(p => this.pets = p.data as any[]);
+    this.petService.getAll().subscribe(p => this.pets = p.data ?? []);
   }
 
   delete(id: number) {
@@ -42,7 +43,7 @@ export class PetList implements OnInit {
     });
   }
 
-  openForm(pet?: any) {
+  openForm(pet?: Pet) {
     const dialogRef = this.dialog.open(PetForm, { data: pet });
     dialogRef.afterClosed().subscribe(() => this.load());
   }

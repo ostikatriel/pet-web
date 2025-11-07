@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { ApiResponse } from './auth-service';
+import { ApiResponse } from './interfaces/api-response.interface';
+import { CreatePetRequest, DeletedPetResponse, Pet, UpdatePetRequest } from './interfaces/pet.interface';
 
 @Injectable({ providedIn: 'root' })
 export class PetService {
@@ -9,18 +10,18 @@ export class PetService {
   private api = `${environment.apiUrl}/pets`;
 
   getAll() {
-    return this.http.get<ApiResponse<any[]>>(this.api);
+    return this.http.get<ApiResponse<Pet[]>>(this.api);
   }
 
-  create(data: any) {
-    return this.http.post<ApiResponse<any>>(this.api, data);
+  create(data: CreatePetRequest) {
+    return this.http.post<ApiResponse<Pet>>(this.api, data);
   }
 
-  update(id: number, data: any) {
-    return this.http.put<ApiResponse<any>>(`${this.api}/${id}`, data);
+  update(id: number, data: UpdatePetRequest) {
+    return this.http.put<ApiResponse<Pet>>(`${this.api}/${id}`, data);
   }
 
   delete(id: number) {
-    return this.http.delete<ApiResponse<any>>(`${this.api}/${id}`);
+    return this.http.delete<ApiResponse<DeletedPetResponse>>(`${this.api}/${id}`);
   }
 }

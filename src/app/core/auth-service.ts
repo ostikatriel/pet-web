@@ -3,18 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { environment } from '../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from './interfaces/auth.interface';
 import { Router } from '@angular/router';
+import { ApiResponse } from './interfaces/api-response.interface';
 
 interface TokenPayload {
   sub: number;
   role: 'ADMIN' | 'CLIENT';
   email: string;
   exp: number;
-}
-
-export interface ApiResponse<T> {
-  message: string;
-  data?: T;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -30,8 +27,8 @@ export class AuthService {
     if (token) this.decodeAndSet(token);
   }
 
-  login(data: { email: string; password: string }) {
-    return this.http.post<ApiResponse<{ token: string }>>(`${this.api}/login`, data)
+  login(data: LoginRequest) {
+    return this.http.post<ApiResponse<LoginResponse>>(`${this.api}/login`, data)
       .subscribe({
         next: res => {
           if (res.data?.token) {
@@ -47,8 +44,8 @@ export class AuthService {
       });
   }
 
-  register(data: any) {
-    return this.http.post<ApiResponse<any>>(`${this.api}/register`, data);
+  register(data: RegisterRequest) {
+    return this.http.post<ApiResponse<RegisterResponse>>(`${this.api}/register`, data);
   }
 
   logout() {

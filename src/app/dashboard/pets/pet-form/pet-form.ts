@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
+import { CreatePetRequest, Pet, UpdatePetRequest } from '../../../core/interfaces/pet.interface';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class PetForm {
   private petService = inject(PetService);
   private dialogRef = inject(MatDialogRef<PetForm>);
   private snackBar = inject(MatSnackBar);
-  data = inject(MAT_DIALOG_DATA);
+  data: Pet | null = inject(MAT_DIALOG_DATA);
 
   form = this.fb.group({
     name: ['', Validators.required],
@@ -35,8 +36,8 @@ export class PetForm {
   submit() {
     if (this.form.valid) {
       const req = this.data
-        ? this.petService.update(this.data.id, this.form.value)
-        : this.petService.create(this.form.value);
+        ? this.petService.update(this.data.id, this.form.value as UpdatePetRequest)
+        : this.petService.create(this.form.value as CreatePetRequest);
       req.subscribe({
         next: (res) => {
           this.snackBar.open(res.message, 'Cerrar', { duration: 5000 });

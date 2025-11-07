@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth-service';
+import { LoginRequest } from '../../core/interfaces/auth.interface';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +23,6 @@ export class Login {
   });
 
   submit() {
-    if (this.form.valid) this.authService.login(this.form.value as { email: string; password: string });
+    if (this.form.valid) this.authService.login(this.form.value as LoginRequest);
   }
 }
