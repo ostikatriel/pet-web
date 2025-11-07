@@ -4,9 +4,18 @@
     </mat-card-header>
     <mat-card-content>
         <form class="form" [formGroup]="form" (ngSubmit)="submit()">
-            <mat-form-field><input matInput placeholder="Nombre" formControlName="name"></mat-form-field>
-            <mat-form-field><input matInput placeholder="Especie" formControlName="species"></mat-form-field>
-            <button mat-raised-button color="primary" type="submit">Guardar</button>
+            <mat-form-field>
+                <input matInput placeholder="Nombre" formControlName="name">
+                @if (form.get('name')?.hasError('required')) {
+                <mat-error>El nombre es requerido.</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field><input matInput placeholder="Especie" formControlName="species">
+                @if (form.get('species')?.hasError('required')) {
+                <mat-error>La especie es requerida.</mat-error>
+                }
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Guardar</button>
         </form>
     </mat-card-content>
 </mat-card>
