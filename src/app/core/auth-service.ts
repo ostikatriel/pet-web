@@ -65,4 +65,8 @@ export class AuthService {
   get token() {
     return localStorage.getItem('token');
   }
+
+  hasRole(role: string | undefined): boolean {
+    return !!role && this.user()?.role === role;
+  }
 }

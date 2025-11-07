@@ -6,11 +6,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../core/auth-service';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HasRoleDirective } from '../../../core/has-role.directive';
 
 @Component({
   selector: 'app-pet-list',
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatDialogModule, MatSnackBarModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatDialogModule, HasRoleDirective],
   templateUrl: './pet-list.html',
   styleUrl: './pet-list.css',
 })
