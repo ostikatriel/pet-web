@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthService } from '../../core/auth-service';
+import { AuthService } from '../../core/services/auth-service';
 import { RegisterRequest } from '../../core/interfaces/auth.interface';
 import { RouterLink } from '@angular/router';
 

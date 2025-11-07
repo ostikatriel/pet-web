@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { PetList } from './pets/pet-list/pet-list';
-import { AuthService } from '../core/auth-service';
+import { AuthService } from '../core/services/auth-service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips'

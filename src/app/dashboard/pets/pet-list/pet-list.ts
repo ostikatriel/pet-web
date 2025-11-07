@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { PetService } from '../../../core/pet-service';
+import { PetService } from '../../../core/services/pet-service';
 import { CommonModule } from '@angular/common';
 import { PetForm } from '../pet-form/pet-form';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthService } from '../../../core/auth-service';
+import { AuthService } from '../../../core/services/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Pet } from '../../../core/interfaces/pet.interface';
 

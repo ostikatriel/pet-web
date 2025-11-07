@@ -1,11 +1,11 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from './interfaces/auth.interface';
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../interfaces/auth.interface';
 import { Router } from '@angular/router';
-import { ApiResponse } from './interfaces/api-response.interface';
+import { ApiResponse } from '../interfaces/api-response.interface';
 
 interface TokenPayload {
   sub: number;
