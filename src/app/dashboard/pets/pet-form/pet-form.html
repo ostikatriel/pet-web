@@ -1,0 +1,12 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ data ? 'Editar Mascota' : 'Nueva Mascota' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+            <mat-form-field><input matInput placeholder="Nombre" formControlName="name"></mat-form-field>
+            <mat-form-field><input matInput placeholder="Especie" formControlName="species"></mat-form-field>
+            <button mat-raised-button color="primary" type="submit">Guardar</button>
+        </form>
+    </mat-card-content>
+</mat-card>
