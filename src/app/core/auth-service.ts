@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { environment } from '../../environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 interface TokenPayload {
@@ -11,11 +12,17 @@ interface TokenPayload {
   exp: number;
 }
 
+export interface ApiResponse<T> {
+  message: string;
+  data?: T;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
   user = signal<TokenPayload | null>(null);
+  private snackBar = inject(MatSnackBar);
   api = `${environment.apiUrl}/auth`;
 
   constructor() {
@@ -24,18 +31,24 @@ export class AuthService {
   }
 
   login(data: { email: string; password: string }) {
-    return this.http.post<{ token: string }>(`${this.api}/login`, data)
+    return this.http.post<ApiResponse<{ token: string }>>(`${this.api}/login`, data)
       .subscribe({
         next: res => {
-          localStorage.setItem('token', res.token);
-          this.decodeAndSet(res.token);
-          this.router.navigateByUrl('/dashboard');
+          if (res.data?.token) {
+            localStorage.setItem('token', res.data.token);
+            this.decodeAndSet(res.data.token);
+            this.router.navigateByUrl('/dashboard');
+            this.snackBar.open(res.message, 'Cerrar', { duration: 5000 });
+          }
+        },
+        error: err => {
+          this.snackBar.open(err.error.message, 'Cerrar', { duration: 5000, panelClass: ['error-snackbar'] });
         }
       });
   }
 
   register(data: any) {
-    return this.http.post(`${this.api}/register`, data);
+    return this.http.post<ApiResponse<any>>(`${this.api}/register`, data);
   }
 
   logout() {

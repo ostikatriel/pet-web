@@ -25,7 +25,7 @@ export class PetList implements OnInit {
   }
 
   load() {
-    this.petService.getAll().subscribe(p => this.pets = p);
+    this.petService.getAll().subscribe(p => this.pets = p.data as any[]);
   }
 
   delete(id: number) {

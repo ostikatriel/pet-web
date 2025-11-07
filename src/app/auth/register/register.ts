@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button'
 import { AuthService } from '../../core/auth-service';
 import { RouterLink } from '@angular/router';
@@ -16,6 +17,7 @@ import { RouterLink } from '@angular/router';
 export class Register {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private snackBar = inject(MatSnackBar);
 
   form = this.fb.group({
     fullName: ['', Validators.required],
@@ -25,7 +27,14 @@ export class Register {
 
   submit() {
     if (this.form.valid) {
-      this.authService.register(this.form.value).subscribe(() => alert('Usuario registrado'));
+      this.authService.register(this.form.value).subscribe({
+        next: (res) => {
+          this.snackBar.open(res.message, 'Cerrar', { duration: 5000 });
+        },
+        error: (err) => {
+          this.snackBar.open(err.error.message, 'Cerrar', { duration: 5000, panelClass: ['error-snackbar'] });
+        }
+      });
     }
   }
 }

@@ -6,6 +6,7 @@ import { PetService } from '../../../core/pet-service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 
 
@@ -19,6 +20,7 @@ export class PetForm {
   private fb = inject(FormBuilder);
   private petService = inject(PetService);
   private dialogRef = inject(MatDialogRef<PetForm>);
+  private snackBar = inject(MatSnackBar);
   data = inject(MAT_DIALOG_DATA);
 
   form = this.fb.group({
@@ -35,7 +37,15 @@ export class PetForm {
       const req = this.data
         ? this.petService.update(this.data.id, this.form.value)
         : this.petService.create(this.form.value);
-      req.subscribe(() => this.dialogRef.close());
+      req.subscribe({
+        next: (res) => {
+          this.snackBar.open(res.message, 'Cerrar', { duration: 5000 });
+          this.dialogRef.close(true);
+        },
+        error: (err) => {
+          this.snackBar.open(err.error.message, 'Cerrar', { duration: 5000, panelClass: ['error-snackbar'] });
+        }
+      });
     }
   }
 }
